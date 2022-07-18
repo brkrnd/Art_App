@@ -82,7 +82,7 @@ class DrawingView(context: Context, attributes: AttributeSet ) : View(context, a
         }
         invalidate()
 
-        return super.onTouchEvent(event)
+        return true
     }
 
     internal inner class CustomPath(var color : Int,
