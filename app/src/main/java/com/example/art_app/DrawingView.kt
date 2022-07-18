@@ -3,8 +3,10 @@ package com.example.art_app
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
+import java.lang.reflect.Type
 
 class DrawingView(context: Context, attributes: AttributeSet ) : View(context, attributes) {
 
@@ -29,7 +31,6 @@ class DrawingView(context: Context, attributes: AttributeSet ) : View(context, a
         mDrawPaint!!.strokeJoin = Paint.Join.ROUND
         mDrawPaint!!.strokeCap = Paint.Cap.ROUND
         mCanvasPaint = Paint(Paint.DITHER_FLAG)
-        mBrushSize = 20.toFloat()
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -81,8 +82,14 @@ class DrawingView(context: Context, attributes: AttributeSet ) : View(context, a
             else -> return false
         }
         invalidate()
-
         return true
+    }
+
+    fun setSizeForBrush(newSize : Float){
+        mBrushSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+            newSize, resources.displayMetrics
+        )
+        mDrawPaint!!.strokeWidth
     }
 
     internal inner class CustomPath(var color : Int,
